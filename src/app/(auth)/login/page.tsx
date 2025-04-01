@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input";
 // @ts-expect-error: Ignoring type error due to use of a third-party library without types
 import validator from "validator";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { useRouter } from 'next/navigation';
 
 type RegisterData = {
 	name: string;
@@ -25,9 +26,9 @@ type RegisterData = {
 	password: string;
 };
 
-export default function Register() {
+export default function Login() {
 	const [showPassword, setShowPassword] = useState(false);
-  
+
 	const {
 		register,
 		handleSubmit,
@@ -38,7 +39,35 @@ export default function Register() {
 	});
 
 	const onSubmit = async (data: RegisterData) => {
-		console.log(data);
+		// console.log("\nUser Login Data: ", data);
+
+		const router = useRouter();
+
+		try {
+			const response = await fetch('/api/login', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(data)
+			});
+
+			const result = await response.json();
+
+			if (response.ok) {
+				console.log("Login successful:", result);
+				localStorage.setItem('user', JSON.stringify(result.user));
+				
+				router.push('/dashboard'); 
+			} else {
+				console.error("Login failed:", result.error);
+				alert(result.error);
+			}
+		}
+		catch (error) {
+			console.error("Error during login:", error);
+			alert("Something went wrong. Try again.");
+		}
 	};
 
 	return (

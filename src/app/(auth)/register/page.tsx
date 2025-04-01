@@ -41,7 +41,23 @@ export default function Register() {
 	});
 
 	const onSubmit = async (data: RegisterData) => {
-		console.log(data);
+		try {
+			const response = await fetch('/api/register',{
+				method: 'POST', 
+				headers: {
+					'Content-Type' : 'application/json'
+				},
+				body: JSON.stringify(data)
+			});
+
+			const result  = await response.json();
+
+			if (response.ok) console.log("Registration Successfull! ", result);
+			else console.error("Registration Failed: ", result.error);
+
+		} catch(error){
+			console.error("Error During Registration!! ", error);
+		}
 	};
 
 	return (
