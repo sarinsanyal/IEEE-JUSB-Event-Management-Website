@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-// @ts-ignore
+// @ts-expect-error
 import validator from "validator";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
@@ -23,26 +23,22 @@ type RegisterData = {
 	name: string;
 	email: string;
 	password: string;
-	confirmPassword: string;
 };
 
 export default function Register() {
 	const [showPassword, setShowPassword] = useState(false);
-	const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
+  
 	const {
 		register,
 		handleSubmit,
 		control,
-		watch,
 		formState: { errors, isValid },
 	} = useForm<RegisterData>({
 		mode: "onChange",
 	});
 
 	const onSubmit = async (data: RegisterData) => {
-		const { confirmPassword, ...restData } = data;
-		console.log(restData);
+		console.log(data);
 	};
 
 	return (
@@ -136,7 +132,7 @@ export default function Register() {
 						</div>
 
 						<p className="mt-4 text-center text-sm">
-							Don't have an account?{" "}
+							Don&apos;t have an account?{" "}
 							<Link href="/register" className="text-blue-300 hover:underline">
 								Register
 							</Link>

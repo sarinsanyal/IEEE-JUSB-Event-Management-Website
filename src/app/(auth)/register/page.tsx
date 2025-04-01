@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-// @ts-ignore
+// @ts-expect-error
 import validator from "validator";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
@@ -41,8 +41,7 @@ export default function Register() {
 	});
 
 	const onSubmit = async (data: RegisterData) => {
-		const { confirmPassword, ...restData } = data;
-		console.log(restData);
+		console.log(data);
 	};
 
 	return (

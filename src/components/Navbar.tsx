@@ -1,6 +1,7 @@
 "use client";
 
 import { Home, Info, CalendarDays, MapPin, Users } from "lucide-react";
+import Link from "next/link";
 
 export default function Navbar() {
     return (
@@ -8,10 +9,10 @@ export default function Navbar() {
             <div className="backdrop-blur-md bg-background/10 p-4 rounded-full w-full flex justify-between items-center">
 
                 <div className="flex gap-4 md:gap-6 items-center">
-                    <a className="flex flex-col md:flex-row items-center gap-1 cursor-pointer hover:text-indigo-400 transition-all duration-300 ease-in-out" href="/">
+                    <Link className="flex flex-col md:flex-row items-center gap-1 cursor-pointer hover:text-indigo-400 transition-all duration-300 ease-in-out" href="/">
                         <Home size={22} />
                         <span className="hidden md:inline">Home</span>
-                    </a>
+                    </Link>
                     <a className="flex flex-col md:flex-row items-center gap-1 cursor-pointer hover:text-indigo-400 transition-all duration-300 ease-in-out" href="/about">
                         <Info size={22} />
                         <span className="hidden md:inline">About</span>
