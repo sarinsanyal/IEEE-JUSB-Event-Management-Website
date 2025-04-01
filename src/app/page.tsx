@@ -20,22 +20,25 @@ export default function Home() {
 			</div>
 
 			<div className="pr-20 pl-20 mb-10 font-semibold text-xl md:text-2xl z-10 lg:text-3xl bg-clip-text text-transparent bg-gradient-to-b from-neutral-600  to-white">
-			Dive into the world where dreams become true, hand in hand with us as we attempt to enlighten your path!
+				Dive into the world where dreams become true, hand in hand with us as we attempt to enlighten your path!
 			</div>
 
-			<div className="flex justify-center"> 
-				<a 
+			<div className="flex justify-center">
+				<a
 					className="cursor-pointer 
-							   border-1 border-white hover:border-blue-500
+							   border-2 border-white hover:border-blue-500
 							   justify-items-center rounded-full w-30
 							   bg-black p-4 pl-4
 							   transition-all duration-300
 							   shadow-[0_0_15px_15px_rgba(157,23,77,1)]"
-					href = "/register"
+					href="/register"
 				>
 					Register!
 				</a>
 			</div>
+			<p className="mt-10 text-xl font-semibold text-center text-gray-1	00 dark:text-gray-200">
+				<span className="text-gradient">10.04.2025</span> @Triguna Sen Auditorium
+			</p>
 		</div>
 	);
 }

@@ -34,7 +34,7 @@ export default function Navbar() {
                 <div className="ml-10 hidden md:block">
                     <a
                         className="cursor-pointer 
-							   border-1 border-white hover:border-blue-500
+							   border-2 border-white hover:border-blue-500
 							   justify-items-center rounded-full w-30
 							   bg-black p-3
 							   transition-all duration-300 ml-10"
