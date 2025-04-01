@@ -38,7 +38,7 @@ export default function Navbar() {
 							   justify-items-center rounded-full w-30
 							   bg-black p-3
 							   transition-all duration-300 ml-10"
-                        href="/signup"
+                        href="/register"
                     >
                         Register!
                     </a>

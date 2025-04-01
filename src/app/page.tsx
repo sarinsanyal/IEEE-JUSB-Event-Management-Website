@@ -31,7 +31,7 @@ export default function Home() {
 							   bg-black p-4 pl-4
 							   transition-all duration-300
 							   shadow-[0_0_15px_15px_rgba(157,23,77,1)]"
-					href = "/signup"
+					href = "/register"
 				>
 					Register!
 				</a>
