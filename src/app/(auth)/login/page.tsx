@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-// @ts-expect-error
+// @ts-expect-error: Ignoring type error due to use of a third-party library without types
 import validator from "validator";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
