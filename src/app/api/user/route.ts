@@ -6,7 +6,7 @@ import User from "@/models/user";
 import jwt from 'jsonwebtoken';
 import { cookies } from 'next/headers';
 
-export async function GET(request: NextRequest) {
+export async function GET() {
     try {
         const authToken = (await cookies()).get('authToken')?.value;
         
@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
         
-        const decoded: any = jwt.verify(authToken, process.env.JWT_SECRET as string);
+        const decoded: { userId: string} = jwt.verify(authToken, process.env.JWT_SECRET as string) as { userId: string };
 
         await connectToDatabase();
         const user = await User.findOne({ _id: decoded.userId }).select('-password -__v');
@@ -24,6 +24,7 @@ export async function GET(request: NextRequest) {
         }
         return NextResponse.json(user, { status: 200 });
     } catch (error) {
+        console.log(error);
         return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
     }
 }

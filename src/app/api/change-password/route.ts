@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
-        const decoded: any = jwt.verify(authToken, process.env.JWT_SECRET as string);
+        const decoded: { userId: string } = jwt.verify(authToken, process.env.JWT_SECRET as string) as { userId: string };
 
         await connectToDatabase();
         const user = await User.findOne({ _id: decoded.userId });
@@ -27,6 +27,7 @@ export async function POST(request: NextRequest) {
 
         return NextResponse.json({ message: "Password changed successfully" }, { status: 200 });
     } catch (error) {
+        console.error("Error changing password:", error);
         return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
     }
 }

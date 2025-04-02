@@ -1,10 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 
 export default function Dashboard() {
-    const [user, setUser] = useState<any>(null);
+    interface User {
+        name: string;
+        email: string;
+        phone: string;
+        department: string;
+        year: string;
+    }
+
+    const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -21,6 +29,10 @@ export default function Dashboard() {
 
         fetchUser();
     }, []);
+
+    if (loading){
+        console.log("Loading user data...");
+    }
 
     return (
         <div className="justify-items-center text-center p-8 min-h-screen">

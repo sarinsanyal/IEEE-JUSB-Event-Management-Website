@@ -17,7 +17,7 @@ import { Input } from "@/components/ui/input";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 //@ts-expect-error: Ignoring type error due to use of a third-party library without types
 import validator from "validator";
-import { useRouter, redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 type RegisterData = {
 	name: string;
 	email: string;
@@ -113,7 +113,7 @@ export default function Register() {
 													placeholder="Enter your email"
 													{...register("email", {
 														required: "Email is required",
-														validate: (value: any) =>
+														validate: (value: string) =>
 															validator.isEmail(value) || "Invalid email format",
 													})}
 												/>
@@ -130,7 +130,7 @@ export default function Register() {
 												{...register("phone",
 													{
 														required: "Phone number is required",
-														validate: (value: any) =>
+														validate: (value: string) =>
 															validator.isMobilePhone(value, 'any') || "Invalid phone number format",
 													})}
 											/>
