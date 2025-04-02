@@ -8,7 +8,7 @@ if (!MONGODB_URI) {
 
 // Ensure mongoose is declared in global scope without redeclaration
 declare global {
-  var mongooseConn: {
+  let mongooseConn: {
     conn: mongoose.Connection | null;
     promise: Promise<mongoose.Connection> | null;
   };
@@ -32,4 +32,3 @@ const connectToDatabase = async () => {
 };
 
 export default connectToDatabase;
-  
