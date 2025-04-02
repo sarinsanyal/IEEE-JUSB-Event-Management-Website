@@ -6,29 +6,19 @@ if (!MONGODB_URI) {
   throw new Error('Please define the MONGODB_URI environment variable in .env.local');
 }
 
-// Ensure mongoose is declared in global scope without redeclaration
-declare global {
-  let mongooseConn: {
-    conn: mongoose.Connection | null;
-    promise: Promise<mongoose.Connection> | null;
-  };
-}
-
-// Use existing global mongoose connection object if available
-global.mongooseConn = global.mongooseConn || { conn: null, promise: null };
+global.mongoose = global.mongoose || { conn: null, promise: null };
 
 const connectToDatabase = async () => {
-  if (global.mongooseConn.conn) return global.mongooseConn.conn;
+  if (global.mongoose.conn) return global.mongoose.conn;
 
-  if (!global.mongooseConn.promise) {
-    global.mongooseConn.promise = mongoose.connect(MONGODB_URI as string, {
-      dbName: 'hello-ieee-2',
-      bufferCommands: false,
+  if (!global.mongoose.promise) {
+    global.mongoose.promise = mongoose.connect(MONGODB_URI as string, {
+      dbName: 'hello-ieee-2', 
     }).then((mongooseInstance) => mongooseInstance.connection);
   }
 
-  global.mongooseConn.conn = await global.mongooseConn.promise;
-  return global.mongooseConn.conn;
-};
+  global.mongoose.conn = await global.mongoose.promise;
+  return global.mongoose.conn;
+}
 
 export default connectToDatabase;
