@@ -20,55 +20,61 @@ import validator from "validator";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useRouter } from 'next/navigation';
 
-type RegisterData = {
-	name: string;
+type LoginData = {
 	email: string;
 	password: string;
 };
 
 export default function Login() {
+	const router = useRouter();
 	const [showPassword, setShowPassword] = useState(false);
+	const [loading, setLoading] = useState(false);
 
 	const {
 		register,
 		handleSubmit,
 		control,
 		formState: { errors, isValid },
-	} = useForm<RegisterData>({
+	} = useForm<LoginData>({
 		mode: "onChange",
 	});
 
-	const onSubmit = async (data: RegisterData) => {
-		// console.log("\nUser Login Data: ", data);
-
-		const router = useRouter();
-
+	const onSubmit = async (data: LoginData) => {
+		setLoading(true);
 		try {
 			const response = await fetch('/api/login', {
 				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(data)
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(data),
 			});
-
-			const result = await response.json();
-
+	
+			let result;
+			const contentType = response.headers.get("content-type");
+	
+			if (contentType && contentType.includes("application/json")) {
+				result = await response.json();
+			} else {
+				const text = await response.text();
+				console.warn("Unexpected response type:", contentType, "Response text:", text);
+				result = { error: "Unexpected response format. Please try again later." };
+			}
+	
 			if (response.ok) {
 				console.log("Login successful:", result);
 				localStorage.setItem('user', JSON.stringify(result.user));
-				
-				router.push('/dashboard'); 
+				alert("Login successful! Redirecting to dashboard...");
+				router.push('/dashboard');
 			} else {
 				console.error("Login failed:", result.error);
 				alert(result.error);
 			}
-		}
-		catch (error) {
+		} catch (error) {
 			console.error("Error during login:", error);
 			alert("Something went wrong. Try again.");
 		}
+		setLoading(false);
 	};
+	
 
 	return (
 		<div className="flex min-h-screen items-center justify-center mt-10 px-4 md:px-8 lg:px-16 bg-transparent text-white">
@@ -83,7 +89,7 @@ export default function Login() {
 						<CardTitle className="text-center text-2xl font-bold">Login</CardTitle>
 					</CardHeader>
 					<CardContent>
-						<Form {...useForm<RegisterData>()}>
+						<Form {...useForm<LoginData>()}>
 							<form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 
 								<FormField
@@ -141,8 +147,8 @@ export default function Login() {
 									)}
 								/>
 
-								<Button type="submit" className="w-full cursor-pointer" disabled={!isValid}>
-									Login
+								<Button type="submit" className="cursor-pointer w-full" disabled={!isValid || loading}>
+									{loading ? "Logging in..." : "Login"}
 								</Button>
 							</form>
 						</Form>

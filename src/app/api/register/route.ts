@@ -6,16 +6,15 @@ export async function POST(req: NextRequest) {
   try {
     await connectToDatabase();
     
-    const { name, email, password } = await req.json();
+    const { name, email, phone, department, year, password } = await req.json();
 
-    // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return NextResponse.json({ error: 'User already exists' }, { status: 400 });
     }
 
     // Create new user
-    const newUser = new User({ name, email, password });
+    const newUser = new User({ name, email, phone, department, year, password });
     await newUser.save();
 
     return NextResponse.json({ message: 'User registered successfully' }, { status: 201 });

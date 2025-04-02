@@ -9,11 +9,8 @@ interface IUser extends Document {
   university?: string;
   department?: string;
   year?: string;
-  isProfileComplete: boolean;
-  isVerified: boolean;
-  otp?: string; 
   comparePassword: (password: string) => Promise<boolean>;
-} //interface as TS
+} //interface due to TS
 
 const UserSchema = new Schema<IUser>({
   name: { type: String, required: true },
@@ -23,9 +20,6 @@ const UserSchema = new Schema<IUser>({
   university: { type: String },
   department: { type: String },
   year: { type: String },
-  isProfileComplete: { type: Boolean, default: false },
-  isVerified: { type: Boolean, default: false },
-  otp: { type: String }, 
 });
 
 UserSchema.pre<IUser>('save', async function (next) {

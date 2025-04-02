@@ -10,23 +10,29 @@ import {
 	FormControl,
 	FormField,
 	FormItem,
-	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-// @ts-expect-error: Ignoring type error due to use of a third-party library without types
-import validator from "validator";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-
+//@ts-expect-error: Ignoring type error due to use of a third-party library without types
+import validator from "validator";
+import { useRouter, redirect } from "next/navigation";
 type RegisterData = {
 	name: string;
 	email: string;
+	phone: string;
+	department: string;
+	year: string;
 	password: string;
 	confirmPassword: string;
 };
 
 export default function Register() {
+	const [loading, setLoading] = useState(false);
+	const router = useRouter();
+	// const [user, setUser] = useState(null);
+
 	const [showPassword, setShowPassword] = useState(false);
 	const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -41,23 +47,34 @@ export default function Register() {
 	});
 
 	const onSubmit = async (data: RegisterData) => {
+		// console.log("\nUser Registration Data: ", data);
+		setLoading(true);
+		console.log("User is being registered...")
 		try {
-			const response = await fetch('/api/register',{
-				method: 'POST', 
+			const response = await fetch('/api/register', {
+				method: 'POST',
 				headers: {
-					'Content-Type' : 'application/json'
+					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify(data)
 			});
 
-			const result  = await response.json();
+			const result = await response.json();
 
-			if (response.ok) console.log("Registration Successfull! ", result);
-			else console.error("Registration Failed: ", result.error);
+			if (response.ok) {
+				console.log("Registration Successfull! ", result);
+				alert("Registration Successful! Redirecting to login page...");
+				router.push("/login");
+			}
+			else {
+				console.error("Registration Failed: ", result.error);
+				alert(result.error);
+			}
 
-		} catch(error){
+		} catch (error) {
 			console.error("Error During Registration!! ", error);
 		}
+		setLoading(false);
 	};
 
 	return (
@@ -75,27 +92,20 @@ export default function Register() {
 					<CardContent>
 						<Form {...useForm<RegisterData>()}>
 							<form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-								
-								<FormField
-									control={control}
-									name="name"
-									render={({ field }) => (
-										<FormItem>
-											<FormLabel>Name</FormLabel>
-											<FormControl>
-												<Input {...field} placeholder="Enter your name" />
-											</FormControl>
-											<FormMessage>{errors.name?.message}</FormMessage>
-										</FormItem>
-									)}
-								/>
+								<FormField control={control} name="name" render={({ field }) => (
+									<FormItem>
+										<FormControl>
+											<Input {...field} placeholder="Enter your name"  {...register("name", { required: "Name is required" })} />
+										</FormControl>
+										<FormMessage>{errors.name?.message}</FormMessage>
+									</FormItem>
+								)} />
 
 								<FormField
 									control={control}
 									name="email"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Email</FormLabel>
 											<FormControl>
 												<Input
 													{...field}
@@ -103,7 +113,7 @@ export default function Register() {
 													placeholder="Enter your email"
 													{...register("email", {
 														required: "Email is required",
-														validate: (value) =>
+														validate: (value: any) =>
 															validator.isEmail(value) || "Invalid email format",
 													})}
 												/>
@@ -113,12 +123,45 @@ export default function Register() {
 									)}
 								/>
 
+								<FormField control={control} name="phone" render={({ field }) => (
+									<FormItem>
+										<FormControl>
+											<Input {...field} placeholder="Enter your phone number"
+												{...register("phone",
+													{
+														required: "Phone number is required",
+														validate: (value: any) =>
+															validator.isMobilePhone(value, 'any') || "Invalid phone number format",
+													})}
+											/>
+										</FormControl>
+										<FormMessage>{errors.phone?.message}</FormMessage>
+									</FormItem>
+								)} />
+
+								<FormField control={control} name="department" render={({ field }) => (
+									<FormItem>
+										<FormControl>
+											<Input {...field} placeholder="Enter your department" {...register("department", { required: "Department is required" })} />
+										</FormControl>
+										<FormMessage>{errors.department?.message}</FormMessage>
+									</FormItem>
+								)} />
+
+								<FormField control={control} name="year" render={({ field }) => (
+									<FormItem>
+										<FormControl>
+											<Input {...field} placeholder="Enter your year" {...register("year", { required: "Year is required" })} />
+										</FormControl>
+										<FormMessage>{errors.year?.message}</FormMessage>
+									</FormItem>
+								)} />
+
 								<FormField
 									control={control}
 									name="password"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Password</FormLabel>
 											<FormControl>
 												<div className="relative">
 
@@ -150,10 +193,8 @@ export default function Register() {
 									name="confirmPassword"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Confirm Password</FormLabel>
 											<FormControl>
 												<div className="relative">
-
 													<Input
 														{...field}
 														type={showConfirmPassword ? "text" : "password"}
@@ -178,19 +219,18 @@ export default function Register() {
 									)}
 								/>
 
-								<Button type="submit" className="w-full cursor-pointer" disabled={!isValid}>
-									Register
+								<Button type="submit" className="cursor-pointer w-full" disabled={!isValid || loading}>
+									{loading ? "Registering you in..." : "Register"}
 								</Button>
 							</form>
 						</Form>
-
 						<div className="relative flex items-center my-4">
 							<div className="w-full border-b border-gray-300"></div>
 							<span className="px-3 text-sm text-gray-500">OR</span>
 							<div className="w-full border-b border-gray-300"></div>
 						</div>
 
-						{/*oauth*/}
+						{/*oauth, will implement after reading docs if time permits*/}
 						<div className="flex mt-4 flex-col gap-3">
 							<Button variant="outline" className="w-full flex items-center text-black *:justify-center gap-2 cursor-pointer">
 								<FcGoogle className="text-xl" /> Continue with Google
