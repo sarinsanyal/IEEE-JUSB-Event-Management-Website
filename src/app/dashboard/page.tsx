@@ -21,7 +21,7 @@ export default function Dashboard() {
 
     useEffect(() => {
         function fetchUser() {
-            if (loading) console.log("Loading user data..."); 
+            if (loading) console.log("Loading user data...");
             (async () => {
                 try {
                     const res = await fetch("/api/user");
@@ -43,7 +43,7 @@ export default function Dashboard() {
         const scanner = new Html5QrcodeScanner("qr-reader", {
             fps: 10,
             qrbox: { width: 250, height: 250 },
-        }, false); 
+        }, false);
 
         scanner.render(
             (decodedText: string) => {
@@ -60,7 +60,7 @@ export default function Dashboard() {
             (err) => console.error("QR Scan Error:", err)
         );
 
-        return () => {  
+        return () => {
             scanner.clear();
         };
     }, [isScanning]);
@@ -133,31 +133,38 @@ export default function Dashboard() {
                             Change Password
                         </button>
 
-                        <button
-                            className="bg-transparent cursor-pointer text-white font-bold border-1 border-white py-2 px-4 rounded-lg hover:bg-gray-600 mt-5"
-                            onClick={() => setIsScanning(true)}
-                        >
-                            Mark Attendance by scanning QR
-                        </button>
-
-                        {isScanning && (
-                            <div className="mt-4 p-4 bg-transparent border-1 border-white text-white rounded-lg">
-                                <h2 className="text-lg font-semibold">Scan QR Code</h2>
-                                <div ref={scannerRef} id="qr-reader"></div>
+                        {!user.attendance ? (
+                            <>
                                 <button
-                                    className="mt-2 px-4 py-2 bg-red-500 text-black rounded-lg"
-                                    onClick={() => setIsScanning(false)}
+                                    className="bg-transparent cursor-pointer text-white font-bold border-1 border-white py-2 px-4 rounded-lg hover:bg-gray-600 mt-5"
+                                    onClick={() => setIsScanning(true)}
                                 >
-                                    Cancel
+                                    Mark Attendance by scanning QR
                                 </button>
-                            </div>
+
+                                {isScanning && (
+                                    <div className="mt-4 p-4 bg-transparent border-1 border-white text-white rounded-lg">
+                                        <h2 className="text-lg font-semibold">Scan QR Code</h2>
+                                        <div ref={scannerRef} id="qr-reader"></div>
+                                        <button
+                                            className="mt-2 px-4 py-2 bg-red-500 text-black rounded-lg"
+                                            onClick={() => setIsScanning(false)}
+                                        >
+                                            Cancel
+                                        </button>
+                                    </div>
+                                )}
+
+                                {qrResult && (
+                                    <div className="mt-4 p-4 bg-green-100 text-green-800 rounded-lg">
+                                        <p><strong>Data has been scanned!</strong> </p>
+                                    </div>
+                                )}
+                            </>
+                        ) : (
+                            <p className="mt-4 text-lg text-green-500">Attendance already marked!</p>
                         )}
 
-                        {qrResult && (
-                            <div className="mt-4 p-4 bg-green-100 text-green-800 rounded-lg">
-                                <p><strong>Data has been scanned!</strong> </p>
-                            </div>
-                        )}
                     </div>
                 </div>
             ) : (
