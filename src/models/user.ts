@@ -9,6 +9,9 @@ interface IUser extends Document {
   university?: string;
   department?: string;
   year?: string;
+  attendance: boolean;
+  registeredAt: Date;
+  attendanceMarkedAt: Date;
   comparePassword: (password: string) => Promise<boolean>;
 } //interface due to TS
 
@@ -20,6 +23,9 @@ const UserSchema = new Schema<IUser>({
   university: { type: String },
   department: { type: String },
   year: { type: String },
+  attendance: { type: Boolean, default: false, index: true },
+  registeredAt: { type: Date, default: Date.now },
+  attendanceMarkedAt: { type: Date, default: null },
 });
 
 UserSchema.pre<IUser>('save', async function (next) {
