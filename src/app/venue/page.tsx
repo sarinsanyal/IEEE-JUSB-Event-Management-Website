@@ -24,7 +24,7 @@ export default function Venue() {
             </div>
 
             <div className="flex flex-col mt-10 md:flex-row">
-                <div className="google-maps m-5">
+                <div className="m-5 p-0 flex justify-center">
                     <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''}>
                         <GoogleMap
                             mapContainerStyle={containerStyle}
@@ -37,7 +37,7 @@ export default function Venue() {
                 </div>
 
                 <div className="m-5 justify-center w-full">
-                    <div className="text-4xl flex font-extrabold justify-center">
+                    <div className="text-3xl flex font-extrabold justify-center">
                         Jadavpur University
                     </div>
 
