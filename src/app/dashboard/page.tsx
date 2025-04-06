@@ -35,7 +35,7 @@ export default function Dashboard() {
         }
 
         fetchUser();
-    }, []);
+    }, [loading]);
 
     useEffect(() => {
         if (!isScanning || !scannerRef.current) return;
@@ -63,7 +63,7 @@ export default function Dashboard() {
         return () => {
             scanner.clear();
         };
-    }, [isScanning]);
+    }, [isScanning, user]);
 
     async function markAttendance(qrData: string) {
         try {
