@@ -29,7 +29,7 @@ export default function Venue() {
                         <GoogleMap
                             mapContainerStyle={containerStyle}
                             center={center}
-                            zoom={18}
+                            zoom={16}
                         >
                             <Marker position={center} />
                         </GoogleMap>
