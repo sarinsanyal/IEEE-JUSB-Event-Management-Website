@@ -94,8 +94,8 @@ export default function About() {
                             </CarouselItem>
 
                         </CarouselContent>
-                        <CarouselPrevious className="bg-transparent" />
-                        <CarouselNext className="bg-transparent" />
+                        <CarouselPrevious className="bg-transparent cursor-pointer" />
+                        <CarouselNext className="bg-transparent cursor-pointer" />
                     </Carousel>
                 </div>
 
