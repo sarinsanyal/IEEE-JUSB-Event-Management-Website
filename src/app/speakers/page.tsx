@@ -4,9 +4,9 @@ import { Card, CardContent } from "@/components/ui/card";
 export default function Speakers() {
     return (
         <div className="min-h-screen">
-            <h1 className="text-center font-extrabold text-4xl lg:text-5xl pt-24 pb-4">
-                SPEAKERS
-            </h1>
+                <h1 className="text-center font-extrabold text-4xl lg:text-5xl pt-24 pb-4">
+                    SPEAKERS
+                </h1>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-4 sm:px-10 lg:px-20 mt-10">
                 <a href="https://www.linkedin.com/in/panisap/" target="_blank" rel="noopener noreferrer">

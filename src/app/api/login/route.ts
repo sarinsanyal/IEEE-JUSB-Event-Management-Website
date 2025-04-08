@@ -25,7 +25,8 @@ export async function POST(req: NextRequest) {
       process.env.JWT_SECRET as string, 
       { expiresIn: '7d' }
     );
-    const response = NextResponse.redirect(new URL('/dashboard', req.url)); 
+    
+    const response = NextResponse.json({ message: 'Registration successful' });
 
     response.cookies.set({
       name: 'authToken',
