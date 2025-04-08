@@ -6,6 +6,7 @@ import { Html5QrcodeScanner } from "html5-qrcode";
 
 export default function Dashboard() {
     interface User {
+        attendance: boolean;
         name: string;
         email: string;
         phone: string;
