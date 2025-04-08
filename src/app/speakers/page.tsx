@@ -10,21 +10,21 @@ export default function Speakers() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-4 sm:px-10 lg:px-20 mt-10">
                 <a href="https://www.linkedin.com/in/panisap/" target="_blank" rel="noopener noreferrer">
-                    <Card className="max-w-sm mx-auto shadow-md h-full flex flex-col bg-background/10">
+                    <Card className="max-w-sm mx-auto shadow-md h-full flex flex-col bg-background/10 transition-transform transform hover:scale-102 hover:border-2 hover:border-white hover:shadow-xl">
                         <CardContent className="p-6 flex flex-col justify-center h-full">
                             <div className="flex justify-center">
                                 <Image src="/speakers/saptarshiPani.png" className="rounded-full" width={150} height={150} alt="Saptarshi Pani" />
                             </div>
                             <h2 className="text-center mt-4 text-2xl font-bold text-white">Saptarshi Pani</h2>
                             <p className="mt-2 text-gray-300 text-md overflow-hidden text-ellipsis">
-                                Jadavpur University Alumnus from the Department of Electrical Engineering , Forbes and ET unstoppable Leader, Working professional at Texas Instruments, part time professional at co-founded startup Alchemyst AI.
+                                Jadavpur University Alumnus from the Department of Electrical Engineering, Forbes and ET unstoppable Leader, Working professional at Texas Instruments, part-time professional at co-founded startup Alchemyst AI.
                             </p>
                         </CardContent>
                     </Card>
                 </a>
 
                 <a href="https://www.linkedin.com/in/sapghosh/" target="_blank" rel="noopener noreferrer">
-                    <Card className="max-w-sm mx-auto shadow-md h-full flex flex-col bg-background/10">
+                    <Card className="max-w-sm mx-auto shadow-md h-full flex flex-col bg-background/10 transition-transform transform hover:scale-102 hover:border-2 hover:border-white hover:shadow-xl">
                         <CardContent className="p-6 flex flex-col justify-center h-full">
                             <div className="flex justify-center">
                                 <Image src="/speakers/saptarshiGhosh.png" className="rounded-full" width={150} height={150} alt="Saptarshi Ghosh" />
@@ -38,7 +38,7 @@ export default function Speakers() {
                 </a>
 
                 <a href="https://jadavpuruniversity.in/" target="_blank" rel="noopener noreferrer">
-                    <Card className="max-w-sm mx-auto shadow-md h-full flex flex-col bg-background/10">
+                    <Card className="max-w-sm mx-auto shadow-md h-full flex flex-col bg-background/10 transition-transform transform hover:scale-102 hover:border-2 hover:border-white hover:shadow-xl">
                         <CardContent className="p-6 flex flex-col justify-center h-full">
                             <div className="flex justify-center">
                                 <Image src="/speakers/vc.png" className="rounded-full" width={150} height={150} alt="Dr. Bhaskar Gupta" />

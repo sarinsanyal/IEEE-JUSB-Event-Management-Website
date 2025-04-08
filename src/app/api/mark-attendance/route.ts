@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
 
         //QR Data is still f'ing return a string WHYYYYYYYY
         const rawData = await req.json();
-        const qrData = JSON.parse(rawData.qrData); // Parse the inner string
+        const qrData = JSON.parse(rawData.qrData); 
 
         // console.log("Parsed QR Data:", qrData);
 
